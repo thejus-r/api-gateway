@@ -1,0 +1,15 @@
+{
+  "name": "@repo/gateway",
+  "type": "module",
+  "dependencies": {
+    "@repo/database": "workspace:",
+    "express": "catalog:",
+    "prom-client": "catalog:",
+    "@redis/client": "catalog:",
+    "http-proxy-middleware": "catalog:",
+    "mongoose": "catalog:"
+  },
+  "devDependencies": {
+    "@types/express": "catalog:"
+  }
+}
