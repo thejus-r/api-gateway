@@ -1,7 +1,9 @@
 {
-  "name": "distributed",
+  "name": "api-gateway",
+  "type": "module",
+  "packageManager": "pnpm@10.28.2",
   "devDependencies": {
-    "turbo": "^2.8.2",
-    "typescript": "^5.9.3"
+    "turbo": "catalog:",
+    "typescript": "catalog:"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/turbo/schema.json",
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "cache": true
+    }
+  }
+}

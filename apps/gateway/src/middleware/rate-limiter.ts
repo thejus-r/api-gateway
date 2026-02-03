@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { client } from "../config/redis";
+import { client } from "../config/redis.js";
 
 const TIER_LIMITS: Record<string, number> = {
   basic: 10,
@@ -14,7 +14,7 @@ export const rateLimiter = async (
   next: NextFunction,
 ) => {
   try {
-    if (req.user) {
+    if (!req.user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 

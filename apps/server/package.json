@@ -1,3 +1,14 @@
 {
-  "name": "@repo/server"
+  "name": "@repo/server",
+  "type": "module",
+  "scripts": {
+    "start": "",
+    "dev": "node src/index.ts"
+  },
+  "dependencies": {
+    "express": "catalog:"
+  },
+  "devDependencies": {
+    "@types/express": "catalog:"
+  }
 }
