@@ -36,7 +36,7 @@ describe("RateLimiterService", () => {
 
     mockExec.mockResolvedValue([undefined, undefined, expectedCount]);
 
-    const result = await service.checklimit(key, window);
+    const result = await service.checklimit(key, window, "FIXED_WINDOW");
     expect(result.currentCount).toBe(expectedCount);
 
     expect(mockMulti.zRemRangeByScore).toHaveBeenCalledWith(
