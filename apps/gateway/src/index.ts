@@ -1,11 +1,12 @@
 import { connectDB } from "@repo/database";
 import express, { type Request, type Response } from "express";
 import { createProxyServer, type ServerOptions } from "http-proxy-3";
-import { connectRedis } from "./config/redis.js";
+import { client, connectRedis } from "./config/redis.js";
 
 import { authMiddleware } from "./middleware/auth-middleware.js";
 import { register, trackMetrics } from "./middleware/metrics.js";
-import { rateLimiter } from "./middleware/rate-limiter.js";
+import { createRateLimiter } from "./middleware/rate-limiter.js";
+import { RateLimiterService } from "./services/ratelimiter-service.js";
 
 const app = express();
 
@@ -27,9 +28,13 @@ const proxyOptions: ServerOptions = {
   changeOrigin: true,
 };
 
+// Initialize RateLimiter
+const rateLimiterService = new RateLimiterService(client);
+const rateLimiterMiddleware = createRateLimiter(rateLimiterService);
+
 const proxy = createProxyServer(proxyOptions);
 
-app.use("/api", authMiddleware, rateLimiter, proxy.web);
+app.use("/api", authMiddleware, rateLimiterMiddleware, proxy.web);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Gateway running on port ${PORT}`));
