@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "node src/index.ts"
+    "dev": "node src/index.ts",
+    "test": "vitest"
   },
   "dependencies": {
     "@repo/database": "workspace:",
@@ -16,6 +17,7 @@
     "mongoose": "catalog:"
   },
   "devDependencies": {
+    "vitest": "catalog:",
     "@types/express": "catalog:"
   }
 }
