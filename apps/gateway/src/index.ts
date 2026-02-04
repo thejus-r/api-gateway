@@ -15,15 +15,15 @@ const MONGO_URI =
 connectDB(MONGO_URI);
 connectRedis();
 
+app.use(trackMetrics);
+
 app.get("/metrics", async (_: Request, res: Response) => {
   res.set("Content-Type", register.contentType);
   res.end(await register.metrics());
 });
 
-app.use(trackMetrics);
-
 const proxyOptions: ServerOptions = {
-  target: "http://localhost:3001",
+  target: process.env.API_URL || "http://localhost:3001",
   changeOrigin: true,
 };
 

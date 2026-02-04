@@ -1,4 +1,16 @@
 services:
+  api-server:
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
+    expose:
+      - "3001"
+    networks:
+      - app-network
+    depends_on:
+      - redis
+      - mongo
+
   gateway:
     build:
       context: .
@@ -9,12 +21,19 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - MONGO_URI=mongodb://root:example@mongo:27017
+      - API_URL=http://api-server:3001
+    depends_on:
+      - api-server
+    networks:
+      - app-network
 
   redis:
     container_name: redis
     image: redis:alpine
     ports:
       - "6379:6379"
+    networks:
+      - app-network
 
   mongo:
     container_name: mongodb
@@ -26,6 +45,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - app-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -33,6 +54,15 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - api-server
+      - gateway
+    networks:
+      - app-network
 
 volumes:
   mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

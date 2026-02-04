@@ -79,6 +79,9 @@ importers:
       '@types/express':
         specifier: 'catalog:'
         version: 5.0.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   packages/database:
     dependencies:

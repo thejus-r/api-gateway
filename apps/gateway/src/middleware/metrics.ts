@@ -24,7 +24,7 @@ export const trackMetrics = (
   res.on("finish", () => {
     const duration = (Date.now() - start) / 1000;
 
-    const tier = "anonymous";
+    const tier = req.user?.tier || "anonymous";
 
     httpRequestDuration.observe(
       {
