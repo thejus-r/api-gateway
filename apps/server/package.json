@@ -2,13 +2,14 @@
   "name": "@repo/server",
   "type": "module",
   "scripts": {
-    "start": "",
+    "build": "tsc",
     "dev": "node src/index.ts"
   },
   "dependencies": {
     "express": "catalog:"
   },
   "devDependencies": {
-    "@types/express": "catalog:"
+    "@types/express": "catalog:",
+    "typescript": "catalog:"
   }
 }
